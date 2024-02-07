@@ -61,7 +61,6 @@ def PL_Snowflake_Test():
             $1:PrecautionCodeDescription::varchar,
             try_to_date($1:LastModifiedDate::varchar,'dd/mm/yyyy')
             From @ACADIA_DA_DB_DEV.ACADIA_EDW_STG.ACADIA_ADLS_DEV/patient_incidents_2024-01-31.parquet) FILE_FORMAT = ACADIA_DA_DB_DEV.ACADIA_EDW_STG.acadia_parquet_format;"""),
-        autocommit=True,
         snowflake_conn_id="snowflake_conn",
         task_id="snowflake_copy_into",
     )
