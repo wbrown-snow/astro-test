@@ -76,6 +76,22 @@ def PL_Snowflake_Test():
         task_id="snowflake_insert",
     )
 
+    snowflake_cleanup1 = SnowflakeOperator(
+        sql="Truncate Table ACADIA_DA_DB_DEV.ACADIA_EDW_STG.RISK_QUAL_PATIENT_INCIDENTS;",
+        snowflake_conn_id="snowflake_conn",
+        task_id="snowflake_cleanup1",
+    )
+
+    snowflake_cleanup2 = SnowflakeOperator(
+        sql="Truncate Table ACADIA_DA_DB_DEV.ACADIA_EDW_STG.TEST_DATA_1;",
+        snowflake_conn_id="snowflake_conn",
+        task_id="snowflake_cleanup2",
+    )
+
+    snowflake_cleanup1 << [snowflake_insert, snowflake_copy_into]
+
+    snowflake_cleanup2 << snowflake_insert
+
     snowflake_copy_into << snowflake_procedure
 
     snowflake_insert << snowflake_copy_into
