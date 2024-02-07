@@ -26,6 +26,7 @@ default_args={
 def PL_Snowflake_Test():
     snowflake_procedure = SnowflakeOperator(
         sql="CALL ACADIA_DA_DB_DEV.ACADIA_EDW_STG.return_string_example();",
+        autocommit=True,
         snowflake_conn_id="snowflake_conn",
         task_id="snowflake_procedure",
     )
@@ -77,12 +78,14 @@ def PL_Snowflake_Test():
 
     snowflake_cleanup1 = SnowflakeOperator(
         sql="Truncate Table ACADIA_DA_DB_DEV.ACADIA_EDW_STG.RISK_QUAL_PATIENT_INCIDENTS;",
+        autocommit=True,
         snowflake_conn_id="snowflake_conn",
         task_id="snowflake_cleanup1",
     )
 
     snowflake_cleanup2 = SnowflakeOperator(
         sql="Truncate Table ACADIA_DA_DB_DEV.ACADIA_EDW_STG.TEST_DATA_1;",
+        autocommit=True,
         snowflake_conn_id="snowflake_conn",
         task_id="snowflake_cleanup2",
     )
